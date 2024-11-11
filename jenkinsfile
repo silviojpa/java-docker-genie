@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    
+    tools{
+       jdk 'jdk17'
+       maven 'maven3.8'
+    }
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/silviojpa/java-docker-genie.git'
+            }
+        }
+        
+        stage('Compile') {
+            steps {
+                sh "mvn compile"
+            }
+        }
+    }
+}
